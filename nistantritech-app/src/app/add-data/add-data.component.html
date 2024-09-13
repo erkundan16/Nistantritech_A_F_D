@@ -1,0 +1,26 @@
+<p>add-data works!</p>
+<form [formGroup]="dataForm" (ngSubmit)="addData()">
+    <mat-form-field>
+      <mat-label>Date and Time</mat-label>
+      <input matInput formControlName="datetime" type="datetime-local">
+      <mat-error *ngIf="dataForm.get('datetime').hasError('invalidDate')">
+        Date must be in the past.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Temperature (°C)</mat-label>
+      <input matInput formControlName="temperature" type="number">
+      <mat-error *ngIf="dataForm.get('temperature').hasError('min')">
+        Temperature must be at least -50°C.
+      </mat-error>
+      <mat-error *ngIf="dataForm.get('temperature').hasError('max')">
+        Temperature must be at most 50°C.
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Add Data</button>
+  </form>
+  
+  <ul>
+    <li *ngFor="let entry of dataEntries">{{ entry.datetime }}: {{ entry.temperature }}°C</li>
+  </ul>
+  
